@@ -1,7 +1,7 @@
-From 17260b3fc3a4187a983c6d37210018736e93363c Mon Sep 17 00:00:00 2001
+From 2e86bca5277b3667910a3f0a5237285b26020853 Mon Sep 17 00:00:00 2001
 From: Hongxu Jia <hongxu.jia@windriver.com>
 Date: Wed, 1 Dec 2021 10:57:16 +0800
-Subject: [PATCH 6/7] Allow updating files in the /boot directory
+Subject: [PATCH 6/9] Allow updating files in the /boot directory
 
 This patch adds support for copying all files from the deployment's
 /usr/lib/ostree-boot directory to the relevant /boot/ostree/$os-$bootcsum/
@@ -20,10 +20,10 @@ Signed-off-by: Kai Kang <kai.kang@windriver.com>
  1 file changed, 57 insertions(+)
 
 diff --git a/src/libostree/ostree-sysroot-deploy.c b/src/libostree/ostree-sysroot-deploy.c
-index de6d6b41..039f5f50 100644
+index e23c958..158a4a5 100644
 --- a/src/libostree/ostree-sysroot-deploy.c
 +++ b/src/libostree/ostree-sysroot-deploy.c
-@@ -1929,6 +1929,63 @@ install_deployment_kernel (OstreeSysroot *sysroot, int new_bootversion,
+@@ -2002,6 +2002,63 @@ install_deployment_kernel (OstreeSysroot *sysroot, int new_bootversion,
        g_ptr_array_add (overlay_initrds, g_steal_pointer (&destpath));
      }
  

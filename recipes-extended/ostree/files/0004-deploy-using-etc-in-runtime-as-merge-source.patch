@@ -1,7 +1,7 @@
-From 737474116e55ab1c401902eeb6b255777b6ab2cc Mon Sep 17 00:00:00 2001
+From d8f073425f595722ad83f838f6af3b8edef2a122 Mon Sep 17 00:00:00 2001
 From: Jiang Lu <lu.jiang@windriver.com>
 Date: Thu, 28 Jun 2018 16:29:45 +0800
-Subject: [PATCH 4/7] deploy:using /etc in runtime as merge source
+Subject: [PATCH 4/9] deploy:using /etc in runtime as merge source
 
 When deploy new ostree image, using /etc in runtime image as source for merge
 operation, instead of /etc in previouse image.
@@ -25,7 +25,7 @@ Signed-off-by: Kai Kang <kai.kang@windriver.com>
  1 file changed, 19 insertions(+), 3 deletions(-)
 
 diff --git a/src/libostree/ostree-sysroot-deploy.c b/src/libostree/ostree-sysroot-deploy.c
-index a8bf9f44..777decc8 100644
+index 116143c..684d487 100644
 --- a/src/libostree/ostree-sysroot-deploy.c
 +++ b/src/libostree/ostree-sysroot-deploy.c
 @@ -506,7 +506,16 @@ merge_configuration_from (OstreeSysroot *sysroot, OstreeDeployment *merge_deploy

@@ -1,7 +1,7 @@
-From 6e26db4dca72816ec7e3ff5369cfff08376fa342 Mon Sep 17 00:00:00 2001
+From 4066b6a10bba90568abd7e4525217628b6ac5bd9 Mon Sep 17 00:00:00 2001
 From: Hongxu Jia <hongxu.jia@windriver.com>
 Date: Mon, 29 Nov 2021 14:58:16 +0800
-Subject: [PATCH 5/7] create links to the deploy directory in /boot and /ostree
+Subject: [PATCH 5/9] create links to the deploy directory in /boot and /ostree
 
 Rework 0001-ostree-bootloader-uboot.c-Create-links-to-the-deploy.patch
 to implement function ostree_bootloader_create_link_to_sysroot to create
@@ -38,7 +38,7 @@ Signed-off-by: Kai Kang <kai.kang@windriver.com>
  4 files changed, 89 insertions(+)
 
 diff --git a/src/libostree/ostree-bootloader-grub2.c b/src/libostree/ostree-bootloader-grub2.c
-index 0ef751dc..091adbfb 100644
+index e1ee786..592af72 100644
 --- a/src/libostree/ostree-bootloader-grub2.c
 +++ b/src/libostree/ostree-bootloader-grub2.c
 @@ -330,6 +330,13 @@ _ostree_bootloader_grub2_write_config (OstreeBootloader *bootloader, int bootver
@@ -56,7 +56,7 @@ index 0ef751dc..091adbfb 100644
     * well */
    gboolean use_system_grub2_mkconfig = TRUE;
 diff --git a/src/libostree/ostree-bootloader-uboot.c b/src/libostree/ostree-bootloader-uboot.c
-index 4cf86246..56b8c119 100644
+index ecae544..12d1f34 100644
 --- a/src/libostree/ostree-bootloader-uboot.c
 +++ b/src/libostree/ostree-bootloader-uboot.c
 @@ -165,6 +165,13 @@ _ostree_bootloader_uboot_write_config (OstreeBootloader *bootloader, int bootver
@@ -74,10 +74,10 @@ index 4cf86246..56b8c119 100644
    g_autofree char *config_contents = glnx_file_get_contents_utf8_at (
        self->sysroot->sysroot_fd, uboot_config_path, NULL, cancellable, error);
 diff --git a/src/libostree/ostree-sysroot-deploy.c b/src/libostree/ostree-sysroot-deploy.c
-index 777decc8..de6d6b41 100644
+index 684d487..e23c958 100644
 --- a/src/libostree/ostree-sysroot-deploy.c
 +++ b/src/libostree/ostree-sysroot-deploy.c
-@@ -3884,3 +3884,71 @@ ostree_sysroot_deployment_set_mutable (OstreeSysroot *self, OstreeDeployment *de
+@@ -4033,3 +4033,71 @@ ostree_sysroot_deployment_set_mutable (OstreeSysroot *self, OstreeDeployment *de
  
    return TRUE;
  }
@@ -150,7 +150,7 @@ index 777decc8..de6d6b41 100644
 +  return TRUE;
 +}
 diff --git a/src/libostree/ostree-sysroot.h b/src/libostree/ostree-sysroot.h
-index 036b81e8..158fadff 100644
+index e84007a..7e4ba53 100644
 --- a/src/libostree/ostree-sysroot.h
 +++ b/src/libostree/ostree-sysroot.h
 @@ -257,4 +257,11 @@ gboolean ostree_sysroot_simple_write_deployment (OstreeSysroot *sysroot, const c

@@ -1,7 +1,7 @@
-From 3bcf67c9aea51734eb31ae227e4538d6efa9661b Mon Sep 17 00:00:00 2001
+From 600a42752663de9bfa528db370c9a7ec02a3c15b Mon Sep 17 00:00:00 2001
 From: Hongxu Jia <hongxu.jia@windriver.com>
 Date: Wed, 1 Dec 2021 10:43:46 +0800
-Subject: [PATCH 2/7] u-boot: add 'bootdir' to the generated uEnv.txt
+Subject: [PATCH 2/9] u-boot: add 'bootdir' to the generated uEnv.txt
 
 When doing a full copy of:
 
@@ -40,7 +40,7 @@ Signed-off-by: Kai Kang <kai.kang@windriver.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/libostree/ostree-bootloader-uboot.c b/src/libostree/ostree-bootloader-uboot.c
-index 7e23001e..4cf86246 100644
+index 41280cf..ecae544 100644
 --- a/src/libostree/ostree-bootloader-uboot.c
 +++ b/src/libostree/ostree-bootloader-uboot.c
 @@ -106,6 +106,7 @@ create_config_from_boot_loader_entries (OstreeBootloaderUboot *self, int bootver

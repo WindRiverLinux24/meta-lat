@@ -1,7 +1,7 @@
-From d723c9e7e3da2f247dce8225ffa67da904d1dbb0 Mon Sep 17 00:00:00 2001
+From b0a251b532e1ecc28d912ce556fd7f302d54901e Mon Sep 17 00:00:00 2001
 From: Hongxu Jia <hongxu.jia@windriver.com>
 Date: Wed, 1 Dec 2021 15:43:34 +0800
-Subject: [PATCH] no warn if we find content in the deployment's /var
+Subject: [PATCH 8/9] no warn if we find content in the deployment's /var
 
 Since commit [edf7477e deploy: Warn if we find content in the
 deployment's /var] applied, warns in LAT but harmless
@@ -20,10 +20,10 @@ Signed-off-by: Kai Kang <kai.kang@windriver.com>
  1 file changed, 3 deletions(-)
 
 diff --git a/src/libostree/ostree-sysroot-deploy.c b/src/libostree/ostree-sysroot-deploy.c
-index 039f5f50..fe439f56 100644
+index 158a4a5..684b8e2 100644
 --- a/src/libostree/ostree-sysroot-deploy.c
 +++ b/src/libostree/ostree-sysroot-deploy.c
-@@ -3047,9 +3047,6 @@ sysroot_initialize_deployment (OstreeSysroot *self, const char *osname, const ch
+@@ -3179,9 +3179,6 @@ sysroot_initialize_deployment (OstreeSysroot *self, const char *osname, const ch
    if (!prepare_deployment_etc (self, repo, new_deployment, deployment_dfd, cancellable, error))
      return FALSE;
  
