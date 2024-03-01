@@ -8,7 +8,6 @@ SRC_URI += " \
     file://0005-create-links-to-the-deploy-directory-in-boot-and-ost.patch \
     file://0006-Allow-updating-files-in-the-boot-directory.patch \
     file://0007-get-output-of-ostree-prepare-root-back.patch \
-    file://0008-no-warn-if-we-find-content-in-the-deployment-s-var.patch \
     file://0009-support-no-initramfs-situation.patch \
     file://system-export.sh \
     file://init-ostree-no-initramfs.sh \
