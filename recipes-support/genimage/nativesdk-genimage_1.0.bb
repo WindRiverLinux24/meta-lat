@@ -48,7 +48,7 @@ RDEPENDS:${PN} = " \
                   nativesdk-python3-texttable \
                   nativesdk-python3-argcomplete \
                   nativesdk-python3-pykwalify \
-                  nativesdk-bmap-tools \
+                  nativesdk-bmaptool \
                   nativesdk-util-linux-uuidgen \
                   nativesdk-perl \
                   nativesdk-pigz \

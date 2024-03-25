@@ -7,7 +7,7 @@ RDEPENDS:${PN} += " \
     nativesdk-gptfdisk \
     nativesdk-dosfstools \
     nativesdk-mtools \
-    nativesdk-bmap-tools \
+    nativesdk-bmaptool \
     nativesdk-btrfs-tools \
     nativesdk-squashfs-tools \
     nativesdk-pseudo \

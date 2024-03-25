@@ -51,7 +51,7 @@ DEPENDS += " \
     qemuwrapper-cross \
     systemd-systemctl-native \
     bootfs-native \
-    bmap-tools-native \
+    bmaptool-native \
     util-linux-native \
     perl-native \
     pigz-native \

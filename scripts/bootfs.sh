@@ -419,7 +419,7 @@ write_wic() {
 	echo "================================================================"
 	if ! which bmaptool > /dev/null ; then
 		echo "### NOTE: bmaptool is not in your path, so you should run:"
-		echo "  bitbake bmap-tools-native"
+		echo "  bitbake bmaptool-native"
 		echo "  bitbake build-sysroots"
 		echo "  PATH=\$PWD/$(ls -trd tmp tmp-glibc 2> /dev/null |tail -1 )/sysroots/x86_64/usr/bin:\$PATH \\"
 	fi
