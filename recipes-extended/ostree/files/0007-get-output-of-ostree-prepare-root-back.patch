@@ -1,7 +1,7 @@
-From b004aca1f52e059baeec4d0a04854952ae2789a8 Mon Sep 17 00:00:00 2001
+From b02b55efccf42dcc15def3519153138b18011122 Mon Sep 17 00:00:00 2001
 From: Hongxu Jia <hongxu.jia@windriver.com>
-Date: Mon, 27 Nov 2023 21:44:42 +0800
-Subject: [PATCH 7/9] get output of ostree-prepare-root back
+Date: Wed, 27 Mar 2024 16:56:32 +0800
+Subject: [PATCH] get output of ostree-prepare-root back
 
 The LAT requires the output of ostree-prepare-root, but commit
 [298c601d ostree-prepare-root: Log journal message after finding
@@ -13,7 +13,7 @@ Upstream-Status: Inappropriate [LAT specific]
 
 Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
 
-Rebased to ostree 2023.7.
+Rebased to ostree 2024.5.
 Skip unnecessary output as debug
 
 Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
@@ -22,10 +22,10 @@ Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/src/switchroot/ostree-prepare-root.c b/src/switchroot/ostree-prepare-root.c
-index 27d06fa..18b8234 100644
+index b93e05c..942400b 100644
 --- a/src/switchroot/ostree-prepare-root.c
 +++ b/src/switchroot/ostree-prepare-root.c
-@@ -157,6 +157,8 @@ resolve_deploy_path (const char *root_mountpoint)
+@@ -147,6 +147,8 @@ resolve_deploy_path (const char *root_mountpoint)
                     SD_ID128_FORMAT_VAL (OSTREE_PREPARE_ROOT_DEPLOYMENT_MSG), "DEPLOYMENT_PATH=%s",
                     resolved_path, "DEPLOYMENT_DEVICE=%" PRIu64, (uint64_t)stbuf.st_dev,
                     "DEPLOYMENT_INODE=%" PRIu64, (uint64_t)stbuf.st_ino, NULL);
@@ -34,7 +34,7 @@ index 27d06fa..18b8234 100644
    return deploy_path;
  }
  
-@@ -396,7 +398,7 @@ main (int argc, char *argv[])
+@@ -324,7 +326,7 @@ main (int argc, char *argv[])
                   PREPARE_ROOT_CONFIG_PATH);
      }
    const bool sysroot_currently_writable = !path_is_on_readonly_fs (root_arg);
@@ -42,8 +42,8 @@ index 27d06fa..18b8234 100644
 +  g_debug ("sysroot.readonly configuration value: %d (fs writable: %d)\n", (int)sysroot_readonly,
             (int)sysroot_currently_writable);
  
-   /* Work-around for a kernel bug: for some reason the kernel
-@@ -495,7 +497,7 @@ main (int argc, char *argv[])
+   /* Remount root MS_PRIVATE here to avoid errors due to the kernel-enforced
+@@ -457,7 +459,7 @@ main (int argc, char *argv[])
            g_assert (composefs_config->enabled != OT_TRISTATE_NO);
            if (composefs_config->enabled == OT_TRISTATE_MAYBE && errsv == ENOENT)
              {

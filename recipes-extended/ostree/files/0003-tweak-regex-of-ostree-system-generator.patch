@@ -1,7 +1,7 @@
-From 5f7a291ff45374a85bf056c44ae1af2bed19f3ca Mon Sep 17 00:00:00 2001
+From 2b45a3ed44bb051a64ecdb4cd5f07ec5a26b2558 Mon Sep 17 00:00:00 2001
 From: Hongxu Jia <hongxu.jia@windriver.com>
-Date: Mon, 27 Nov 2023 10:25:54 +0800
-Subject: [PATCH 3/9] tweak regex of ostree-system-generator
+Date: Wed, 27 Mar 2024 16:46:39 +0800
+Subject: [PATCH] tweak regex of ostree-system-generator
 
 The ostree has boot params ostree="/ostree/1" on grub
 and uboot which is a synlink point to
@@ -13,37 +13,48 @@ Upstream-Status: Inappropriate [LAT specific]
 
 Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
 
-Rebased to ostree 2023.7
+Rebased to ostree 2024.5
 
 Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
 ---
- src/libostree/ostree-impl-system-generator.c | 7 ++++++-
+ src/libostree/ostree-impl-system-generator.c | 9 +++++++--
  src/libostree/ostree-sysroot.c               | 2 +-
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/src/libostree/ostree-impl-system-generator.c b/src/libostree/ostree-impl-system-generator.c
-index ad785eb..60b7103 100644
+index c5fe503..7104054 100644
 --- a/src/libostree/ostree-impl-system-generator.c
 +++ b/src/libostree/ostree-impl-system-generator.c
-@@ -144,7 +144,12 @@ fstab_generator (const char *ostree_cmdline, const char *normal_dir, const char
-    * mounted yet.
-    */
+@@ -166,6 +166,11 @@ fstab_generator (const char *ostree_target, const bool is_aboot, const char *nor
+   static const char fstab_path[] = "/etc/fstab";
+   static const char var_path[] = "/var";
+ 
++  char ostree_target_new[PATH_MAX] = {0};
++
++  if (readlink(ostree_target, ostree_target_new, sizeof(ostree_target_new)) < 0)
++      return glnx_prefix_error (error, "Failed to readlink %s", ostree_target);
++
+   /* Written by ostree-sysroot-deploy.c. We parse out the stateroot here since we
+    * need to know it to mount /var. Unfortunately we can't easily use the
+    * libostree API to find the booted deployment since /boot might not have been
+@@ -174,10 +179,10 @@ fstab_generator (const char *ostree_target, const bool is_aboot, const char *nor
    g_autofree char *stateroot = NULL;
--  if (!_ostree_sysroot_parse_bootlink (ostree_cmdline, NULL, &stateroot, NULL, NULL, error))
-+  char ostree_cmdline_new[PATH_MAX] = {0};
-+
-+  if (readlink(ostree_cmdline, ostree_cmdline_new, sizeof(ostree_cmdline_new)) < 0)
-+      return glnx_prefix_error (error, "Failed to readlink %s", ostree_cmdline);
-+
-+  if (!_ostree_sysroot_parse_bootlink (ostree_cmdline_new, NULL, &stateroot, NULL, NULL, error))
+   if (is_aboot)
+     {
+-      if (!_ostree_sysroot_parse_bootlink_aboot (ostree_target, &stateroot, error))
++      if (!_ostree_sysroot_parse_bootlink_aboot (ostree_target_new, &stateroot, error))
+         return glnx_prefix_error (error, "Parsing aboot stateroot");
+     }
+-  else if (!_ostree_sysroot_parse_bootlink (ostree_target, NULL, &stateroot, NULL, NULL, error))
++  else if (!_ostree_sysroot_parse_bootlink (ostree_target_new, NULL, &stateroot, NULL, NULL, error))
      return glnx_prefix_error (error, "Parsing stateroot");
  
    /* Load /etc/fstab if it exists, and look for a /var mount */
 diff --git a/src/libostree/ostree-sysroot.c b/src/libostree/ostree-sysroot.c
-index 91b63f9..a7b0f39 100644
+index a25d0b2..ef714b4 100644
 --- a/src/libostree/ostree-sysroot.c
 +++ b/src/libostree/ostree-sysroot.c
-@@ -730,7 +730,7 @@ _ostree_sysroot_parse_bootlink (const char *bootlink, int *out_entry_bootversion
+@@ -731,7 +731,7 @@ _ostree_sysroot_parse_bootlink (const char *bootlink, int *out_entry_bootversion
    static GRegex *regex;
    if (g_once_init_enter (&regex_initialized))
      {
