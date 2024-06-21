@@ -10,7 +10,7 @@ SRC_URI = "file://COPYING \
            file://bootfs_wrapper.sh \
            file://marvell-cn96xx-sd.sh \
           "
-FILESEXTRAPATHS:prepend := "${LAYER_PATH_lat-layer}/scripts:"
+FILESEXTRAPATHS:prepend := "${LAYER_PATH_wrlinux}/scripts:"
 
 FILES:${PN} += "${datadir}/bootfs \
 	"

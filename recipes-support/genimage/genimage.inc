@@ -273,7 +273,7 @@ do_install:append() {
 	cp ${OSTREE_GPGDIR}/RPM-GPG-PRIVKEY-${OSTREE_GPGID} ${D}${datadir}/genimage/rpm_keys/
 
 	install -d ${D}${datadir}/genimage/data/wic/
-	cp -f ${LAYER_PATH_lat-layer}/wic/ostree-*.wks.in ${D}${datadir}/genimage/data/wic/
+	cp -f ${LAYER_PATH_wrlinux}/wic/ostree-*.wks.in ${D}${datadir}/genimage/data/wic/
 
 	install -d ${D}${bindir}/crossscripts
 	install -m 0755 ${WORKDIR}/crossscripts/* ${D}${bindir}/crossscripts
