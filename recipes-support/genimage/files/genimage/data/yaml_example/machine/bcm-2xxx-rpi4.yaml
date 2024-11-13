@@ -7,7 +7,6 @@ machine: bcm-2xxx-rpi4
 packages:
 - kernel-devicetree
 - kernel-image-image
-- kernel-module-bcm2835-gpiomem
 - kernel-module-bcm2835-v4l2
 - kernel-module-bnep
 - kernel-module-brcmfmac
